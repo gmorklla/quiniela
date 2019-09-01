@@ -1,0 +1,100 @@
+[{
+  "jornada": 1,
+  "partidos": [{
+      "id": 1,
+      "local": 23,
+      "visitante": 24,
+      "fecha": [2019, 8, 17, 11, 55]
+    },
+    {
+      "id": 2,
+      "local": 28,
+      "visitante": 25,
+      "fecha": [2019, 8, 17, 11, 55]
+    },
+    {
+      "id": 3,
+      "local": 29,
+      "visitante": 31,
+      "fecha": [2019, 8, 17, 14, 0]
+    },
+    {
+      "id": 4,
+      "local": 19,
+      "visitante": 20,
+      "fecha": [2019, 8, 17, 14, 0]
+    },
+    {
+      "id": 5,
+      "local": 18,
+      "visitante": 17,
+      "fecha": [2019, 8, 17, 14, 0]
+    },
+    {
+      "id": 6,
+      "local": 30,
+      "visitante": 32,
+      "fecha": [2019, 8, 17, 14, 0]
+    },
+    {
+      "id": 7,
+      "local": 26,
+      "visitante": 27,
+      "fecha": [2019, 8, 17, 14, 0]
+    },
+    {
+      "id": 8,
+      "local": 22,
+      "visitante": 21,
+      "fecha": [2019, 8, 17, 14, 0]
+    },
+    {
+      "id": 9,
+      "local": 4,
+      "visitante": 3,
+      "fecha": [2019, 8, 18, 11, 55]
+    },
+    {
+      "id": 10,
+      "local": 7,
+      "visitante": 5,
+      "fecha": [2019, 8, 18, 11, 55]
+    },
+    {
+      "id": 11,
+      "local": 15,
+      "visitante": 16,
+      "fecha": [2019, 8, 18, 14, 0]
+    },
+    {
+      "id": 12,
+      "local": 1,
+      "visitante": 2,
+      "fecha": [2019, 8, 18, 14, 0]
+    },
+    {
+      "id": 13,
+      "local": 6,
+      "visitante": 8,
+      "fecha": [2019, 8, 18, 14, 0]
+    },
+    {
+      "id": 14,
+      "local": 14,
+      "visitante": 13,
+      "fecha": [2019, 8, 18, 14, 0]
+    },
+    {
+      "id": 15,
+      "local": 12,
+      "visitante": 9,
+      "fecha": [2019, 8, 18, 14, 0]
+    },
+    {
+      "id": 16,
+      "local": 11,
+      "visitante": 10,
+      "fecha": [2019, 8, 18, 14, 0]
+    }
+  ]
+}]

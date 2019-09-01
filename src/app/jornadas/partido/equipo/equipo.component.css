@@ -1,0 +1,15 @@
+.equipo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.escudo {
+  margin-right: 10px;
+}
+
+img {
+  width: 24px;
+  height: 24px;
+}

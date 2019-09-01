@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+
+img {
+  width: 24px;
+  height: 24px;
+}
+
+.mat-header-cell:first-child,
+.mat-cell:first-child {
+  flex: 0 0 40px;
+}
+
+.mat-header-cell:nth-child(2),
+.mat-cell:nth-child(2) {
+  flex: 0 0 40px;
+}
+
+.mat-header-cell:last-child,
+.mat-cell:last-child {
+  flex: 1;
+}

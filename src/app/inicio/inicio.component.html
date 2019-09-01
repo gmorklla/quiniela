@@ -1,0 +1,11 @@
+<ng-container *ngFor="let grupo of grupos | async">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Grupo {{grupo.grupo}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-grupo-tabla [grupo]="grupo"></app-grupo-tabla>
+    </mat-card-content>
+    <!-- <pre>{{grupo.equipos | json}}</pre> -->
+  </mat-card>
+</ng-container>

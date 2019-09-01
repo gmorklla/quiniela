@@ -1,0 +1,13 @@
+<ng-container *ngFor="let jornada of jornadas | async">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Jornada {{jornada.jornada}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngFor="let partido of jornada.partidos">
+        <app-partido [partido]="partido"></app-partido>
+      </ng-container>
+    </mat-card-content>
+    <!-- <pre>{{jornada | json}}</pre> -->
+  </mat-card>
+</ng-container>
