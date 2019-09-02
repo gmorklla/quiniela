@@ -12,7 +12,5 @@ export class GrupoTablaComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log('grupo', this.grupo);
-  }
+  ngOnInit() {}
 }

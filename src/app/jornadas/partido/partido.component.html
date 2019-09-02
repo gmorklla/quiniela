@@ -1,9 +1,14 @@
 <ng-container *ngIf="equipos">
   <div class="partido-container">
-    <app-equipo [equipo]="getEquipo(partido.local)"></app-equipo>
-    <app-equipo [equipo]="getEquipo(partido.visitante)"></app-equipo>
-    <div class="fecha">{{partido.fecha}}</div>
-    <div class="hora">{{partido.fecha}}</div>
-    <hr>
+    <div class="equipos-container">
+      <app-equipo [equipo]="getEquipo(partido.local)"></app-equipo>
+      <app-equipo [equipo]="getEquipo(partido.visitante)"></app-equipo>
+    </div>
+    <div class="marcador-container">
+
+    </div>
+    <div class="fecha-container">
+      <app-fecha [fecha]="getFecha(partido.fecha)"></app-fecha>
+    </div>
   </div>
 </ng-container>

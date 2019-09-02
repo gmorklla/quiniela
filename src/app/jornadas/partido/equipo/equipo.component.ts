@@ -11,7 +11,5 @@ export class EquipoComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    console.log('equipo', this.equipo);
-  }
+  ngOnInit() {}
 }

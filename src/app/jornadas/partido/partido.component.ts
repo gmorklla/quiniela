@@ -14,7 +14,6 @@ export class PartidoComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    console.log('partido', this.partido);
     const url = './assets/data/equipos.json';
     this.http.get<Equipo[]>(url).subscribe(equipos => (this.equipos = equipos));
   }
@@ -24,5 +23,10 @@ export class PartidoComponent implements OnInit {
       return;
     }
     return this.equipos.filter(eq => eq.id === id)[0];
+  }
+
+  getFecha(num: number[]): Date {
+    const date = new Date(...num);
+    return date;
   }
 }
