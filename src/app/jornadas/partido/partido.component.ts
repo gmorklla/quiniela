@@ -26,7 +26,7 @@ export class PartidoComponent implements OnInit {
   }
 
   getFecha(num: number[]): Date {
-    const date = new Date(...num);
+    const date = new Date(num[0], num[1], num[2], num[3], num[4]);
     return date;
   }
 }
