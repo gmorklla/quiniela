@@ -4,7 +4,8 @@ import { Jornada } from '../shared/interfaces/general';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { firestore } from 'firebase/app';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-jornadas',
@@ -13,9 +14,16 @@ import { map } from 'rxjs/operators';
 })
 export class JornadasComponent implements OnInit {
   jornadas: Observable<Jornada[]>;
-  constructor(private http: HttpClient, private afs: AngularFirestore) {}
+  constructor(
+    private http: HttpClient,
+    private afs: AngularFirestore,
+    public afAuth: AngularFireAuth
+  ) {}
 
   ngOnInit() {
+    this.afAuth.user
+      .pipe(filter(val => val !== null))
+      .subscribe(user => console.log('user', user));
     const url = './assets/data/partidos.json';
     this.jornadas = this.http.get<Jornada[]>(url);
     this.jornadas

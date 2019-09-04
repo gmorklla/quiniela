@@ -10,8 +10,12 @@ export class AppComponent {
   title = 'Quiniela';
   nav = [
     {
-      title: 'Grupos',
+      title: 'Login',
       path: '/'
+    },
+    {
+      title: 'Grupos',
+      path: '/grupos'
     },
     {
       title: 'Jornadas',
