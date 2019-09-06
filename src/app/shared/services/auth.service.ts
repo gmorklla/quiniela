@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   getUser() {
-    return this.user$.pipe(first()).toPromise();
+    return this.afAuth.user;
   }
 
   googleSignIn() {
