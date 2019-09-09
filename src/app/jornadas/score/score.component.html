@@ -1,0 +1,10 @@
+<form [formGroup]="scoreForm">
+  <mat-form-field>
+    <mat-label>Pronóstico</mat-label>
+    <mat-select formControlName="pronostico">
+      <mat-option value="l">Local</mat-option>
+      <mat-option value="e">Empate</mat-option>
+      <mat-option value="v">Visitante</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

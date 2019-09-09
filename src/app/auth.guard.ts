@@ -5,9 +5,9 @@ import {
   RouterStateSnapshot,
   UrlTree
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of, iif } from 'rxjs';
 import { AuthService } from './shared/services/auth.service';
-import { tap, filter } from 'rxjs/operators';
+import { tap, filter, mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +23,17 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    this.auth
-      .getUser()
-      .pipe(
-        filter(user => user !== null),
-        tap(user => console.log('%cUser', 'background: yellowgreen;', user))
-      )
-      .subscribe(_ => {});
-    return true;
+    const t$ = of(true);
+    const f$ = of(false);
+    return this.auth.user.pipe(
+      tap(user => {
+        console.log('%cUser', 'background: yellowgreen;', user);
+        if (user !== null) {
+          const { uid, displayName, photoURL } = user;
+          this.auth.setLoggedUser({ uid, displayName, photoURL });
+        }
+      }),
+      mergeMap(v => iif(() => v !== null, t$, f$))
+    );
   }
 }

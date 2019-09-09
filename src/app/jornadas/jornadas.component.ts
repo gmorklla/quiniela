@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Jornada } from '../shared/interfaces/general';
 import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from '../shared/services/auth.service';
 import { firestore } from 'firebase/app';
-import { map } from 'rxjs/operators';
+import { DbService } from './../shared/services/db.service';
+import { Partido } from '../shared/interfaces/general';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-jornadas',
@@ -12,59 +12,43 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./jornadas.component.css']
 })
 export class JornadasComponent implements OnInit {
-  jornadas: Observable<Jornada[]>;
-  constructor(private http: HttpClient, private afs: AngularFirestore) {}
+  partidos: Observable<Partido[]>;
+
+  constructor(
+    private db: DbService,
+    public auth: AuthService,
+    private afs: AngularFirestore
+  ) {}
 
   ngOnInit() {
-    const url = './assets/data/partidos.json';
-    this.jornadas = this.http.get<Jornada[]>(url);
-    this.jornadas
-      .pipe(
-        map(val => {
-          const { partidos } = val[0];
-          const partidosF = partidos.map(match => {
-            const { id, local, visitante } = match;
-            const fecha = new Date(
-              match.fecha[0],
-              match.fecha[1],
-              match.fecha[2],
-              match.fecha[3],
-              match.fecha[4]
-            );
-            return { id, local, visitante, fecha };
-          });
-          return partidosF;
-        })
-      )
-      .subscribe(val => {
-        console.log('jornadas sub', val);
-        // const ref = this.afs.collection('jornadas').doc('nMJpaoWKFugFTeYXuTz4');
-        // ref.update({
-        //   partidos: firestore.FieldValue.arrayUnion(...val)
-        // });
-      });
-    // this.create();
+    this.partidos = this.db.readPartidosCollection('partidos');
   }
 
-  async create() {
-    const data = {
-      jornada: 1,
-      partidos: []
-    };
-
-    const docRef = await this.afs.collection('jornadas').add(data);
-    console.log('docRef', docRef);
+  getJornada(idx: number): number {
+    return Number.isInteger(idx / 16)
+      ? idx === 0
+        ? 1
+        : Math.floor(idx / 16)
+      : Math.floor(idx / 16) + 1;
   }
 
-  async guardarPartidos() {
-    this.jornadas.subscribe(val => console.log('jornadas sub', val));
-    const data = {
-      createdAt: Date.now()
-    };
-
-    // const ref = this.afs.collection('jornadas').doc('nMJpaoWKFugFTeYXuTz4');
-    // ref.update({
-    //   partidos: firestore.FieldValue.arrayUnion(data)
-    // });
+  savePronostico(e: string, partidoId: number) {
+    console.log(
+      '%c savePronostico ',
+      'background: yellowgreen;',
+      e,
+      this.auth.getLoggedUser(),
+      partidoId
+    );
+    const { uid } = this.auth.getLoggedUser();
+    const ref = this.afs.collection('partidos').doc(partidoId.toString());
+    ref
+      .update({
+        pronosticos: firestore.FieldValue.arrayUnion({ uid, result: e })
+      })
+      .then(_ => console.log('pronostico guardado'))
+      .catch(err =>
+        console.error('%c error ', 'background: crimson; color: white;', err)
+      );
   }
 }

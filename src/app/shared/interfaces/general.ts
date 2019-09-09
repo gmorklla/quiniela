@@ -9,14 +9,15 @@ export interface Grupos {
   equipos: Equipo[];
 }
 
+export interface User {
+  uid: string;
+  displayName: string;
+  photoURL: string;
+}
+
 export interface Partido {
+  fecha: any;
   id: number;
   local: number;
   visitante: number;
-  fecha: number[];
-}
-
-export interface Jornada {
-  jornada: number;
-  partidos: Partido[];
 }

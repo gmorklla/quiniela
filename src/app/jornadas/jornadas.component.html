@@ -1,12 +1,14 @@
-<ng-container *ngFor="let jornada of jornadas | async">
+<h3>Partidos</h3>
+<ng-container *ngFor="let partido of (partidos | async) | orderPartidos; let i = index;">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Jornada {{jornada.jornada}}</mat-card-title>
+      <mat-card-subtitle>
+        Jornada {{getJornada(i)}}
+      </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <ng-container *ngFor="let partido of jornada.partidos">
-        <app-partido [partido]="partido"></app-partido>
-      </ng-container>
+      <app-partido [partido]="partido"></app-partido>
+      <app-score (pronostico)="savePronostico($event, partido.id)"></app-score>
     </mat-card-content>
   </mat-card>
 </ng-container>
