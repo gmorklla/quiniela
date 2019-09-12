@@ -8,6 +8,7 @@
     </mat-card-header>
     <mat-card-content>
       <app-partido [partido]="partido"></app-partido>
+      <!-- TODO: pasar pronostico ya guardado para mostrarlo -->
       <app-score (pronostico)="savePronostico($event, partido.id)"></app-score>
     </mat-card-content>
   </mat-card>

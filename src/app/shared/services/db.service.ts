@@ -35,8 +35,8 @@ export class DbService {
       .valueChanges();
   }
 
-  readPartidosCollection(collection: string): Observable<Partido[]> {
-    return this.afs.collection<Partido>(collection).valueChanges();
+  readCollection(collection: string): Observable<any> {
+    return this.afs.collection<any>(collection).valueChanges();
   }
 
   saveGames(
@@ -52,7 +52,11 @@ export class DbService {
       const ref = this.afs.firestore
         .collection('partidos')
         .doc(partido.id.toString());
+      const ref2 = this.afs.firestore
+        .collection('pronosticos')
+        .doc(partido.id.toString());
       batch.set(ref, partido);
+      batch.set(ref2, []);
     });
     return batch.commit();
   }
