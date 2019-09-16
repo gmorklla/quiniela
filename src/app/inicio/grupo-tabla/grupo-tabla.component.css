@@ -7,6 +7,10 @@ img {
   height: 24px;
 }
 
+.mat-header-row {
+  min-height: 15px;
+}
+
 .mat-header-cell:first-child,
 .mat-cell:first-child {
   flex: 0 0 40px;
@@ -20,4 +24,16 @@ img {
 .mat-header-cell:last-child,
 .mat-cell:last-child {
   flex: 1;
+}
+
+.mat-column-id {
+  min-width: 50px;
+}
+
+.mat-column-img {
+  justify-content: center;
+}
+
+.mat-column-nombre {
+  padding: 0 24px 0 10px;
 }

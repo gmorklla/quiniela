@@ -17,7 +17,9 @@
               routerLink="{{route.path}}"
               routerLinkActive="active"
               (click)="toggleMobileNav(lnav)"
-            >{{route.title}}</a>
+            >
+              <mat-icon>{{route.icon}}</mat-icon> {{route.title}}
+            </a>
           </mat-list-item>
         </mat-list>
       </div>
@@ -28,6 +30,7 @@
         color="primary"
       >
         <button
+          style="margin-right: 1rem;"
           mat-icon-button
           (click)="lnav.toggle()"
         >
@@ -38,20 +41,6 @@
         <span whoami></span>
       </mat-toolbar>
       <mat-drawer-container class="sidenav-container">
-        <mat-drawer mode="side">
-          <div class="content">
-            <mat-list>
-              <mat-list-item *ngFor="let route of nav">
-                <a
-                  mat-button
-                  routerLink="{{route.path}}"
-                  routerLinkActive="active"
-                  (click)="toggleMobileNav(lnav)"
-                >{{route.title}}</a>
-              </mat-list-item>
-            </mat-list>
-          </div>
-        </mat-drawer>
         <mat-drawer-content>
           <router-outlet></router-outlet>
         </mat-drawer-content>

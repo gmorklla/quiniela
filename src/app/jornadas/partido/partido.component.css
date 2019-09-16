@@ -12,3 +12,8 @@
 .fecha-container {
   flex: 1 0 30%;
 }
+
+span {
+  margin: 0 5px 0 0;
+  font-size: x-small;
+}

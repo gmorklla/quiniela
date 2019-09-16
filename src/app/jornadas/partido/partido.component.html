@@ -1,8 +1,8 @@
 <ng-container *ngIf="equipos">
   <div class="partido-container">
     <div class="equipos-container">
-      <app-equipo [equipo]="getEquipo(partido.local)"></app-equipo>
-      <app-equipo [equipo]="getEquipo(partido.visitante)"></app-equipo>
+      <app-equipo [equipo]="getEquipo(partido.local)"><span>(L)</span></app-equipo>
+      <app-equipo [equipo]="getEquipo(partido.visitante)"><span>(V)</span></app-equipo>
     </div>
     <div class="marcador-container">
 

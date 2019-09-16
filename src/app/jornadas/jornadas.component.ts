@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, iif, of, from } from 'rxjs';
+import { Observable, iif, of } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service';
-import { firestore } from 'firebase/app';
 import { DbService } from './../shared/services/db.service';
 import { Partido } from '../shared/interfaces/general';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { mergeMap, take, tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-jornadas',
@@ -14,24 +14,32 @@ import { mergeMap, take, tap } from 'rxjs/operators';
 })
 export class JornadasComponent implements OnInit {
   partidos: Observable<Partido[]>;
-  pronosticos: Observable<any>;
+  pronosticos;
+  pronosticosGenerales;
+  usuarios;
 
   constructor(
     private db: DbService,
     public auth: AuthService,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
+    this.getUsuarios();
     this.getPartidos();
     this.getPronosticos();
+  }
+
+  getUsuarios() {
+    this.db.readCollection('users').subscribe(users => (this.usuarios = users));
   }
 
   getJornada(idx: number): number {
     return Number.isInteger(idx / 16)
       ? idx === 0
         ? 1
-        : Math.floor(idx / 16)
+        : Math.floor(idx / 16) + 1
       : Math.floor(idx / 16) + 1;
   }
 
@@ -40,12 +48,16 @@ export class JornadasComponent implements OnInit {
   }
 
   getPronosticos() {
-    // this.pronosticos = this.db.readCollection('pronosticos');
+    const { uid } = this.auth.getLoggedUser();
     this.db
-      .readCollection('pronosticos')
-      .subscribe(val =>
-        console.log('%c pronosticos ', 'background: yellowgreen;', val)
-      );
+      .readCollectionWIds('pronosticos')
+      .pipe(
+        tap((pronos: Array<any>) => {
+          this.pronosticosGenerales = pronos;
+          this.pronosticos = pronos.filter(val => val.id === uid)[0];
+        })
+      )
+      .subscribe(_ => {});
   }
 
   savePronostico(e: string, partidoId: number) {
@@ -74,7 +86,10 @@ export class JornadasComponent implements OnInit {
     const ref = this.afs.collection('pronosticos').doc(uid);
     ref
       .update(obj)
-      .then(_ => console.log('pronostico guardado'))
+      .then(_ => {
+        this.openSnackBar('Pronóstico guardado', 'Ok');
+        this.getPronosticos();
+      })
       .catch(err =>
         console.error('%c error ', 'background: crimson; color: white;', err)
       );
@@ -84,9 +99,20 @@ export class JornadasComponent implements OnInit {
     const ref = this.afs.collection('pronosticos').doc(uid);
     ref
       .set(obj)
-      .then(_ => console.log('pronostico guardado'))
+      .then(_ => this.openSnackBar('Pronóstico guardado', 'Ok'))
       .catch(err =>
         console.error('%c error ', 'background: crimson; color: white;', err)
       );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
+  }
+
+  validaFecha(partido: Partido): boolean {
+    const date = new Date();
+    return partido.fecha.toDate() > date;
   }
 }

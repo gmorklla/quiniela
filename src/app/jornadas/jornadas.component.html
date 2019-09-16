@@ -8,8 +8,16 @@
     </mat-card-header>
     <mat-card-content>
       <app-partido [partido]="partido"></app-partido>
-      <!-- TODO: pasar pronostico ya guardado para mostrarlo -->
-      <app-score (pronostico)="savePronostico($event, partido.id)"></app-score>
+      <app-score
+        *ngIf="validaFecha(partido)"
+        (pronostico)="savePronostico($event, partido.id)"
+        [pronosticoGuardado]="pronosticos[i + 1]"
+      ></app-score>
+      <app-pronosticos
+        [partido]="i + 1"
+        [pronosticosGenerales]="pronosticosGenerales"
+        [usuarios]="usuarios"
+      ></app-pronosticos>
     </mat-card-content>
   </mat-card>
 </ng-container>

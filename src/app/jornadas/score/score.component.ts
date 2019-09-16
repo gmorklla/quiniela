@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,12 +8,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ScoreComponent implements OnInit {
   scoreForm: FormGroup;
+  @Input() pronosticoGuardado: { resultado: string };
   @Output() pronostico = new EventEmitter<string>();
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.initForm();
+    this.setForm();
     this.listenForm();
   }
 
@@ -26,6 +28,17 @@ export class ScoreComponent implements OnInit {
   listenForm() {
     this.scoreForm.valueChanges.subscribe(val =>
       this.pronostico.emit(this.scoreForm.value.pronostico)
+    );
+  }
+
+  setForm() {
+    this.scoreForm.setValue(
+      {
+        pronostico: this.pronosticoGuardado
+          ? this.pronosticoGuardado.resultado
+          : ''
+      },
+      { emitEvent: false }
     );
   }
 }

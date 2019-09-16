@@ -1,0 +1,49 @@
+<p>Partidos registrados: {{contador?.contador}}</p>
+<form [formGroup]="creadorForm">
+  <mat-form-field>
+    <mat-label>Local</mat-label>
+    <mat-select formControlName="local">
+      <mat-option
+        *ngFor="let equipo of (equipos | async); let i = index;"
+        [value]="equipo.id"
+      >{{i + 1}} - {{equipo.nombre}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Visitante</mat-label>
+    <mat-select formControlName="visitante">
+      <mat-option
+        *ngFor="let equipo of (equipos | async); let i = index;"
+        [value]="equipo.id"
+      >{{i + 1}} - {{equipo.nombre}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      placeholder="Fecha"
+      formControlName="fecha"
+      readonly="true"
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="picker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker
+      #picker
+      disabled="false"
+    ></mat-datepicker>
+  </mat-form-field>
+  <ngb-timepicker
+    formControlName="hora"
+    [minuteStep]="5"
+    [size]="'small'"
+  ></ngb-timepicker>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="creadorForm.invalid"
+    (click)="agregaPartido()"
+  >Agregar</button>
+</form>

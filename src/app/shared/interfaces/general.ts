@@ -21,3 +21,7 @@ export interface Partido {
   local: number;
   visitante: number;
 }
+
+export interface Contador {
+  contador: number;
+}

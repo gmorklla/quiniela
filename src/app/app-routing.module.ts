@@ -18,7 +18,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./jornadas/jornadas.module').then(m => m.JornadasModule)
-  }
+  },
+  { path: 'creador', loadChildren: () => import('./creador-juegos/creador-juegos.module').then(m => m.CreadorJuegosModule) }
 ];
 
 @NgModule({

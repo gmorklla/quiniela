@@ -51,6 +51,9 @@ export class LoginComponent {
     const { uid, displayName, photoURL } = user.user;
     this.db
       .createCustomId('users', { uid, displayName, photoURL }, uid)
+      .then(_ =>
+        this.db.createCustomId('pronosticos', { 1: { resultado: '' } }, uid)
+      )
       .then(_ => console.log('%c user saved ', 'background: yellowgreen;'))
       .catch(err =>
         console.error(

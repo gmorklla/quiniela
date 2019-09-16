@@ -11,15 +11,18 @@ export class AppComponent {
   nav = [
     {
       title: 'Login',
-      path: '/'
+      path: '/',
+      icon: 'account_box'
     },
     {
       title: 'Grupos',
-      path: '/grupos'
+      path: '/grupos',
+      icon: 'view_module'
     },
     {
       title: 'Jornadas',
-      path: '/jornadas'
+      path: '/jornadas',
+      icon: 'sports_soccer'
     }
   ];
 

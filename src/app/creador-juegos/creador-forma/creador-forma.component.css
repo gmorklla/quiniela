@@ -1,0 +1,24 @@
+form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form>* {
+  flex: 0 0 49%;
+}
+
+button {
+  flex: 0 0 100% !important;
+}
+
+ngb-timepicker {
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  margin: 1rem 0;
+}

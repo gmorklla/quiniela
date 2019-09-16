@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 import { User, Partido } from '../interfaces/general';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +29,10 @@ export class DbService {
       .set(data);
   }
 
-  read(collection: string, documentId: string): Observable<User> {
+  read(collection: string, documentId: string): Observable<any> {
     return this.afs
       .collection(collection)
-      .doc<User>(documentId)
+      .doc<any>(documentId)
       .valueChanges();
   }
 
@@ -39,25 +40,44 @@ export class DbService {
     return this.afs.collection<any>(collection).valueChanges();
   }
 
-  saveGames(
-    partidos: {
-      id: number;
-      local: number;
-      visitante: number;
-      fecha: Date;
-    }[]
-  ): Promise<void> {
-    const batch = this.afs.firestore.batch();
-    partidos.forEach(partido => {
-      const ref = this.afs.firestore
-        .collection('partidos')
-        .doc(partido.id.toString());
-      const ref2 = this.afs.firestore
-        .collection('pronosticos')
-        .doc(partido.id.toString());
-      batch.set(ref, partido);
-      batch.set(ref2, []);
-    });
-    return batch.commit();
+  readCollectionWIds(collection: string): Observable<any> {
+    return this.afs
+      .collection<any>(collection)
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
+  }
+
+  saveGame(partido: {
+    id: number;
+    local: number;
+    visitante: number;
+    fecha: Date;
+  }): Promise<void> {
+    const ref = this.afs.firestore
+      .collection('partidos')
+      .doc(partido.id.toString());
+    return ref.set(partido);
+    // const batch = this.afs.firestore.batch();
+    // partidos.forEach(partido => {
+    //   const ref = this.afs.firestore
+    //     .collection('partidos')
+    //     .doc(partido.id.toString());
+    //   batch.set(ref, partido);
+    // });
+    // return batch.commit();
+  }
+
+  incrementaContador(): Promise<void> {
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const contadorRef = this.afs.doc(`contadorPartidos/a0s3TCGThT5pyIfUxGT2`);
+    return contadorRef.update({ contador: increment });
   }
 }
