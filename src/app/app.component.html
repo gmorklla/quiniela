@@ -21,6 +21,9 @@
               <mat-icon>{{route.icon}}</mat-icon> {{route.title}}
             </a>
           </mat-list-item>
+          <mat-list-item>
+            <app-notificaciones></app-notificaciones>
+          </mat-list-item>
         </mat-list>
       </div>
     </mat-sidenav>
@@ -43,6 +46,7 @@
       <mat-drawer-container class="sidenav-container">
         <mat-drawer-content>
           <router-outlet></router-outlet>
+          {{ message | async | json }}
         </mat-drawer-content>
       </mat-drawer-container>
     </mat-sidenav-content>

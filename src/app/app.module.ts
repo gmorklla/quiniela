@@ -11,10 +11,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotificacionesComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
@@ -26,6 +28,7 @@ import { environment } from '../environments/environment';
     RouterModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
