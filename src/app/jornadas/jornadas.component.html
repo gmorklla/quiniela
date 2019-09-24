@@ -10,7 +10,7 @@
       <app-partido [partido]="partido"></app-partido>
       <app-score
         *ngIf="validaFecha(partido)"
-        (pronostico)="savePronostico($event, partido.id)"
+        (pronostico)="savePronostico($event, partido)"
         [pronosticoGuardado]="pronosticos[i + 1]"
       ></app-score>
       <app-pronosticos
