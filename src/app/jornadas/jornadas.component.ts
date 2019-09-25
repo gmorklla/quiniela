@@ -128,12 +128,20 @@ export class JornadasComponent implements OnInit {
     } = this.notificacion;
     const lName = equipos.filter(eq => eq.id === local);
     const vName = equipos.filter(eq => eq.id === visitante);
-    const params = new HttpParams()
-      .set('usuario', displayName)
-      .set('local', lName[0].nombre)
-      .set('visitante', vName[0].nombre)
-      .set('pronostico', pronostico)
-      .set('photo', photoURL);
+    const params = new HttpParams();
+    const paramsO = {
+      usuario: displayName,
+      local: lName[0].nombre,
+      visitante: vName[0].nombre,
+      pronostico,
+      photo: photoURL
+    };
+    for (const key in paramsO) {
+      if (paramsO.hasOwnProperty(key)) {
+        const val = paramsO[key];
+        params.set(key, val);
+      }
+    }
     this.http
       .get(url, { params })
       .subscribe(res => console.log('notificacion res', res));
