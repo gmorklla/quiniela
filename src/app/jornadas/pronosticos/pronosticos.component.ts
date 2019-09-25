@@ -10,6 +10,7 @@ import { User } from 'src/app/shared/interfaces/general';
 export interface PronosticosData {
   nombre: string;
   resultado: string;
+  acertado: boolean;
 }
 
 @Component({
@@ -21,8 +22,9 @@ export class PronosticosComponent implements OnInit, OnChanges {
   @Input() partido: number;
   @Input() pronosticosGenerales;
   @Input() usuarios: User[];
+  @Input() resultado: string;
   dataToShow: PronosticosData[];
-  displayedColumns: string[] = ['nombre', 'resultado'];
+  displayedColumns: string[] = ['nombre', 'resultado', 'acertado'];
 
   constructor() {}
 
@@ -32,7 +34,11 @@ export class PronosticosComponent implements OnInit, OnChanges {
         ...val[this.partido],
         nombre: this.usuarios
           .filter(users => users.uid === val.id)
-          .map(user => (user ? user.displayName : ''))
+          .map(user => (user ? user.displayName : '')),
+        acertado:
+          val[this.partido] && this.resultado
+            ? val[this.partido].resultado === this.resultado
+            : null
       };
     });
   }

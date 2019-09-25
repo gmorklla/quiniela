@@ -20,6 +20,7 @@ export interface Partido {
   id: number;
   local: number;
   visitante: number;
+  resultado?: string;
 }
 
 export interface Contador {

@@ -5,7 +5,7 @@
       <app-equipo [equipo]="getEquipo(partido.visitante)"><span>(V)</span></app-equipo>
     </div>
     <div class="marcador-container">
-
+      <div>{{partido.resultado ? partido.resultado.toUpperCase() : '-'}}</div>
     </div>
     <div class="fecha-container">
       <app-fecha [fecha]="partido.fecha.toDate()"></app-fecha>

@@ -6,7 +6,24 @@
 }
 
 .equipos-container {
-  flex: 1 0 70%;
+  flex: 1 0 60%;
+}
+
+.marcador-container {
+  flex: 1 0 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.marcador-container div {
+  background-color: slateblue;
+  color: white;
+  border-radius: 50%;
+  min-height: 30px;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fecha-container {

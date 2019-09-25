@@ -17,6 +17,7 @@ import { FechaComponent } from './partido/fecha/fecha.component';
 import { ScoreComponent } from './score/score.component';
 import { OrderPartidosPipe } from '../shared/pipes/order-partidos.pipe';
 import { PronosticosComponent } from './pronosticos/pronosticos.component';
+import { MatIconModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PronosticosComponent } from './pronosticos/pronosticos.component';
     MatSelectModule,
     MatButtonModule,
     MatTableModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ]
 })
 export class JornadasModule {}
